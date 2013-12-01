@@ -9,11 +9,11 @@ check_cfg () {
 if [ -e $MICORE_CFG ]; then
      echo -en "Micore build enivonment is already configured\nThe following configurartion has been found:\n\n`cat $MICORE_CFG`\n\nDo you want to reconfigure the build environement (y,n)?"; read check_cfg_option
      case "$check_cfg_option" in
-         y) rm $MICORE_CFG; make_cfg_toolchain; make_cfg_toolchain_path; make_cfg_version; make_micore_environment;;
+         y) rm $MICORE_CFG; make_cfg_toolchain; make_cfg_toolchain_path; make_cfg_device; make_cfg_version; make_micore_environment;;
          n) clear;;
      esac
 else 
-    make_cfg_toolchain; make_cfg_toolchain_path; make_cfg_version; make_micore_environment
+    make_cfg_toolchain; make_cfg_toolchain_path; make_cfg_device; make_cfg_version; make_micore_environment
 fi
 }
 
