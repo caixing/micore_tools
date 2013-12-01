@@ -1,0 +1,12 @@
+assert(getprop("ro.product.device") == "aries" ||
+       getprop("ro.build.product") == "aries");
+show_progress(0.500000, 0);
+ui_print(" ");
+ui_print("MiCore Kernel V0.7.5");
+ui_print("For Xiaomi Mi2/s (aries)");
+mount("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/system", "/system");
+delete_recursive("/system/lib/modules");
+delete("/system/bin/configure");
+delete("/system/etc/kernel.cfg");
+package_extract_file("boot.img", "/dev/block/platform/msm_sdcc.1/by-name/boot");
+unmount("/system");
