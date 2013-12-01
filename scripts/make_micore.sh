@@ -50,9 +50,9 @@ if [ $# -gt 0 ]; then
                  aries) micore_tools/scripts/make_kernel.sh aries;;
                      *) micore_tools/scripts/make_kernel.sh $DEVICE;;
             esac
-     elif [ $2 == "--version" ]; then
+     elif [ $1 == "--version" ]; then
             sed -i '/VERSION=*/ d' $MICORE_CFG
-            echo "VERSION=$4" >> $MICORE_CFG
+            echo "VERSION=$2" >> $MICORE_CFG
      fi
 else
      show_argument_help
