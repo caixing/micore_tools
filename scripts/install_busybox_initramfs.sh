@@ -1,4 +1,4 @@
-cd micore_tools/$2/initramfs/sbin
+cd micore_tools/$1/initramfs/sbin
 chmod 775 busybox
 ln -fs busybox [
 ln -fs busybox [[
