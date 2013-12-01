@@ -37,17 +37,19 @@ fi
 
 make_cfg_version () {
 echo -en "\nEnter a version for MiCore build: "; read version_option
+VERSION=$version_option
 echo -en "Version can be updated with: ./make_micore.sh --version [version]"
 }
 
 make_micore_environment () {
 echo "TOOLCHAIN=$TOOLCHAIN" > $MICORE_CFG
 echo "CROSS_COMPILE=$CROSS_COMPILE" >> $MICORE_CFG
+echo "VERSION=$VERSION" >> $MICORE_CFG
 
 chmod 755 micore_tools/scripts/*
 chmod 755 micore_tools/bootimage_tools/*
 ln -sf micore_tools/scripts/$MICORE_MAIN $MICORE_MAIN
-echo -en "\n\nConfiguration of MiCore build environment succesfully complete!\n"; sleep 2
+echo -en "\n\nConfiguration of MiCore build environment succesfully complete!\n"; sleep 2; clear
 }
 
 clear; check_cfg
