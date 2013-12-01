@@ -1,6 +1,6 @@
 #!/bin/bash
 source micore_tools/micore.cfg
-DEVICE=$2
+DEVICE=$1
 INITRAMFS_TMP=/tmp/initramfs-source
 INITRAMFS_SOURCE=micore_tools/$DEVICE/initramfs
 
