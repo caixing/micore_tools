@@ -46,7 +46,6 @@ if [ "$FSTRIM" = "y" ]; then
 fi
 
 echo "4096" > /proc/sys/vm/min_free_kbytes
-echo "1" > /sys/module/intelli_plug/parameters/intelli_plug_active
 
 # sysctl 
 if [ -e /system/etc/sysctl.conf ]; then
