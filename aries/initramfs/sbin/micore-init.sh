@@ -20,9 +20,6 @@ mount -o remount,ro /system
 # VM min_free_kbytes 
 echo "4096" > /proc/sys/vm/min_free_kbytes
 
-# Set KGSL simple governor as default
-echo "simple" > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/pwrscale/trustzone/governor
-
 # sysctl 
 if [ -e /system/etc/sysctl.conf ]; then
      syctl -p /system/etc/sysctl.conf
