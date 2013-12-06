@@ -352,7 +352,7 @@ on boot
 # Set this property so surfaceflinger is not started by system_init
     setprop system_init.startsurfaceflinger 0
 
-    start micore-init
+    start micore_init
     class_start core
     class_start main
     class_start late_start
@@ -571,7 +571,7 @@ service lbesec /system/lib/liblbesec.so
     class main
     oneshot
 
-service micore-init /sbin/micore-init.sh
+service micore_init /sbin/micore-init.sh
     user root
     oneshot
 
