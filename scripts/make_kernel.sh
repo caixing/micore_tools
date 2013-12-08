@@ -4,7 +4,7 @@ export CROSS_COMPILE=$CROSS_COMPILE
 export LOCALVERSION="-MiCore-$VERSION"
 
 make mrproper
-if [ "$1" = != "" ]; then
+if [ "$1" != "" ]; then
      make $1
 else
      make $DEFCONFIG
