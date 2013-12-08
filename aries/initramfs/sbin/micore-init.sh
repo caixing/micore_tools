@@ -11,11 +11,19 @@ if [ ! -d /system/lib/modules ]; then
      chmod 644 /system/lib/modules/prima/prima_wlan.ko
      ln -s /system/lib/modules/prima/prima_wlan.ko /system/lib/modules/wlan.ko
 fi
+
+# disable MPDecision
+if [ -e /system/bin/mpdecision ]; then
+     mv /system/bin/mpdecision /system/bin/mpdecision.bak
+fi
 mount -o remount,ro /system
 
 # fstrim
 /sbin/fstrim -v /cache
 /sbin/fstrim -v /data
+
+# KGSL simple
+echo "simple" > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/pwrscale/trustzone/governor
 
 # VM min_free_kbytes 
 echo "4096" > /proc/sys/vm/min_free_kbytes
