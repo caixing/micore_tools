@@ -18,15 +18,29 @@ if [ -e /system/bin/mpdecision ]; then
 fi
 mount -o remount,ro /system
 
-# fstrim
-/sbin/fstrim -v /cache
-/sbin/fstrim -v /data
-
 # KGSL simple
 echo "simple" > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/pwrscale/trustzone/governor
 
-# VM min_free_kbytes 
+# VM optimizations
 echo "4096" > /proc/sys/vm/min_free_kbytes
+echo "0" > /proc/sys/vm/swappiness
+
+# CPU freq optimizations
+echo "384000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+echo "95" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
+echo "85" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold_any_cpu_load
+echo "75" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold_multi_core
+echo "102600" > /sys/devices/system/cpu/cpufreq/intellidemand/boostfreq
+echo "1134000" > /sys/devices/system/cpu/cpufreq/intellidemand/two_phase_freq
+echo "1242000" > /sys/devices/system/cpu/cpufreq/intellidemand/optimal_freq
+echo "756000" > /sys/devices/system/cpu/cpufreq/intellidemand/sync_freq
+
+# IO optimizations
+echo "3072" > /sys/block/mmcblk0/queue/read_ahead_kb
+
+# fstrim
+/sbin/fstrim -v /cache
+/sbin/fstrim -v /data
 
 # sysctl 
 if [ -e /system/etc/sysctl.conf ]; then
