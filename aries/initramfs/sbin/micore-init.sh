@@ -30,10 +30,10 @@ echo "384000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 echo "95" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
 echo "85" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold_any_cpu_load
 echo "75" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold_multi_core
-echo "102600" > /sys/devices/system/cpu/cpufreq/intellidemand/boostfreq
-echo "1134000" > /sys/devices/system/cpu/cpufreq/intellidemand/two_phase_freq
-echo "1242000" > /sys/devices/system/cpu/cpufreq/intellidemand/optimal_freq
-echo "756000" > /sys/devices/system/cpu/cpufreq/intellidemand/sync_freq
+echo "1134000, 1134000, 1134000, 1134000" > /sys/devices/system/cpu/cpufreq/intellidemand/two_phase_freq
+echo "1350000" > /sys/devices/system/cpu/cpufreq/intellidemand/optimal_freq
+echo "810000" > /sys/devices/system/cpu/cpufreq/intellidemand/sync_freq
+echo "1350000, 1350000, 1350000, 1350000" > /sys/devices/system/cpu/cpufreq/intellidemand/input_event_min_freq
 
 # IO optimizations
 echo "3072" > /sys/block/mmcblk0/queue/read_ahead_kb
