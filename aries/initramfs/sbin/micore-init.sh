@@ -20,23 +20,25 @@ mount -o remount,ro /system
 
 # KGSL simple
 echo "simple" > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/pwrscale/trustzone/governor
+echo "10000" > /sys/module/msm_kgsl_core/parameters/simple_ramp_threshold
 
 # VM optimizations
 echo "4096" > /proc/sys/vm/min_free_kbytes
 echo "0" > /proc/sys/vm/swappiness
 
 # CPU freq optimizations
+MAX_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq)
 echo "384000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 echo "95" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
 echo "85" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold_any_cpu_load
 echo "75" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold_multi_core
 echo "1134000, 1134000, 1134000, 1134000" > /sys/devices/system/cpu/cpufreq/intellidemand/two_phase_freq
-echo "1350000" > /sys/devices/system/cpu/cpufreq/intellidemand/optimal_freq
+echo "$MAX_FREQ" > /sys/devices/system/cpu/cpufreq/intellidemand/optimal_freq
 echo "810000" > /sys/devices/system/cpu/cpufreq/intellidemand/sync_freq
 echo "1350000, 1350000, 1350000, 1350000" > /sys/devices/system/cpu/cpufreq/intellidemand/input_event_min_freq
 
 # IO optimizations
-echo "3072" > /sys/block/mmcblk0/queue/read_ahead_kb
+echo "2048" > /sys/block/mmcblk0/queue/read_ahead_kb
 
 # fstrim
 /sbin/fstrim -v /cache
