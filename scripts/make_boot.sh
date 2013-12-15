@@ -18,19 +18,23 @@ find $INITRAMFS_TMP -name ".git*" -exec rm -rf {} \;
 find $INITRAMFS_TMP -name EMPTY_DIRECTORY -exec rm -rf {} \;
 rm -rf $INITRAMFS_TMP/tmp/*
 
-#copy modules into initramfs
-mkdir -p $INITRAMFS_TMP/lib/modules/prima
-find /home/jake/android_kernel_aries -name '*.ko' -exec cp -av {} $INITRAMFS_TMP/lib/modules \;
-"$CROSS_COMPILE"strip --strip-unneeded $INITRAMFS_TMP/lib/modules/*
-rm -f $INITRAMFS_TMP/lib/modules/ansi_cprng.ko
-rm -f $INITRAMFS_TMP/lib/modules/mcdrvmodule.ko
-rm -f $INITRAMFS_TMP/lib/modules/mckernelapi.ko
-rm -f $INITRAMFS_TMP/lib/modules/qce40.ko
-rm -f $INITRAMFS_TMP/lib/modules/qcedev.ko
-rm -f $INITRAMFS_TMP/lib/modules/qcrypto.ko 
-mv $INITRAMFS_TMP/lib/modules/wlan.ko $INITRAMFS_TMP/lib/modules/prima/prima_wlan.ko
-chmod 644 $INITRAMFS_TMP/lib/modules/*
-chmod 644 $INITRAMFS_TMP/lib/modules/prima/prima_wlan.ko
+#copy modules into system folder
+MICORE_MODULES=/tmp/micore_modules
+rm -rf micore_tools/aries/zip_template/system/lib $MICORE_MODULES
+mkdir -p $MICORE_MODULES/prima
+mkdir -p micore_tools/aries/zip_template/system/lib
+find -name '*.ko' -exec cp -av {} $MICORE_MODULES \;
+"$CROSS_COMPILE"strip --strip-unneeded $MICORE_MODULES/*
+rm -f $MICORE_MODULES/ansi_cprng.ko
+rm -f $MICORE_MODULES/mcdrvmodule.ko
+rm -f $MICORE_MODULES/mckernelapi.ko
+rm -f $MICORE_MODULES/qce40.ko
+rm -f $MICORE_MODULES/qcedev.ko
+rm -f $MICORE_MODULES/qcrypto.ko 
+mv $MICORE_MODULES/wlan.ko $MICORE_MODULES/prima/prima_wlan.ko
+chmod 644 $MICORE_MODULES/*
+chmod 644 $MICORE_MODULES/prima/prima_wlan.ko
+cp -r $MICORE_MODULES micore_tools/aries/zip_template/system/lib/modules
 
 cp /home/jake/android_kernel_aries/arch/arm/boot/zImage zImage
 micore_tools/bootimage_tools/mkbootfs /tmp/initramfs-source | gzip > micore_tools/initrd.img
@@ -51,8 +55,7 @@ ui_print("MiCore Kernel $VERSION");
 ui_print("For Xiaomi $DEVICE");
 mount("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/system", "/system");
 delete_recursive("/system/lib/modules");
-delete("/system/bin/configure");
-delete("/system/etc/kernel.cfg");
+package_extract_dir("system", "/system");
 package_extract_file("boot.img", "/dev/block/platform/msm_sdcc.1/by-name/boot");
 unmount("/system");
 EOF
