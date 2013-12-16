@@ -20,6 +20,7 @@ ln -fs busybox id
 ln -fs busybox insmod
 ln -fs busybox md5sum
 ln -fs busybox mkdir
+ln -fs busybox mkswap
 ln -fs busybox mount
 ln -fs busybox mv
 ln -fs busybox run-parts
@@ -27,6 +28,8 @@ ln -fs busybox sed
 ln -fs busybox source
 ln -fs busybox sh
 ln -fs busybox sleep
+ln -fs busybox swapoff
+ln -fs busybox swapon
 ln -fs busybox sync
 ln -fs busybox sysctl
 ln -fs busybox tee
