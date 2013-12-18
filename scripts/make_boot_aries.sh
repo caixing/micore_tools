@@ -39,11 +39,8 @@ cp -r $MICORE_MODULES micore_tools/aries/zip_template/system/lib/modules
 cp /home/jake/android_kernel_aries/arch/arm/boot/zImage zImage
 micore_tools/bootimage_tools/mkbootfs /tmp/initramfs-source | gzip > micore_tools/initrd.img
 
-make_boot_aries () {
 # create new boot.img
 micore_tools/bootimage_tools/mkbootimg --kernel arch/arm/boot/zImage --ramdisk micore_tools/initrd.img --cmdline "console=null androidboot.hardware=qcom ehci-hcd.park=3 maxcpus=2" --base 0x80200000 --pagesize 2048 --ramdisk_offset 0x02000000 -o micore_tools/aries/zip_template/boot.img
-}
-make_boot_"$DEVICE"
 
 # add updater-script
 cat > micore_tools/$DEVICE/zip_template/META-INF/com/google/android/updater-script << EOF
@@ -52,7 +49,7 @@ assert(getprop("ro.product.device") == "$DEVICE" ||
 show_progress(0.500000, 0);
 ui_print(" ");
 ui_print("MiCore Kernel $VERSION");
-ui_print("For Xiaomi $DEVICE");
+ui_print("For Xiaomi MI-2/S (aries)");
 mount("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/system", "/system");
 delete_recursive("/system/lib/modules");
 package_extract_dir("system", "/system");

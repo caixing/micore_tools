@@ -36,10 +36,7 @@ if [ $# -gt 0 ]; then
      if [ $1 == "--help" ]; then
           show_argument_help
      elif [ $1 == "--boot" ]; then
-            case "$2" in
-                 aries) micore_tools/scripts/make_boot.sh aries;;
-                     *) micore_tools/scripts/make_boot.sh $DEVICE;;
-            esac
+            micore_tools/scripts/make_boot_$DEVICE.sh $DEVICE
      elif [ $1 == "--busybox" ]; then
             case "$2" in
                  aries) micore_tools/scripts/install_busybox_initramfs.sh aries;;
