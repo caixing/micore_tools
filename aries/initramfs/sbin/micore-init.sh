@@ -3,13 +3,9 @@
 export PATH=/sbin:/system/sbin:/system/bin:/system/xbin
 
 mount -o remount,rw /system
-if [ ! -e /system/etc/micore.cfg ]; then
-     cp /sbin/micore.cfg /system/etc/micore.cfg
-fi
-source /system/etc/micore.cfg
-
-# modules permissions
-if [ ! -e /system/lib/modules/wlan.ko ]; then
+# Modules
+if [ ! -d /system/lib/modules ]; then
+     cp -r /lib/modules /system/lib/modules
      chmod -R 755 /system/lib/modules
      chmod -R 755 /system/lib/modules/prima
      chmod 644 /system/lib/modules/*.ko
@@ -17,13 +13,32 @@ if [ ! -e /system/lib/modules/wlan.ko ]; then
      ln -s /system/lib/modules/prima/prima_wlan.ko /system/lib/modules/wlan.ko
 fi
 
-# disable MPDecision
+# Disable MPDecision
 if [ -e /system/bin/mpdecision ]; then
      mv /system/bin/mpdecision /system/bin/mpdecision.bak
 fi
 mount -o remount,ro /system
 
-# CPU freq optimizations
+# Remount all partitions with noatime
+for k in $(busybox mount | grep relatime | cut -d " " -f3); do
+sync
+busybox mount -o remount,noatime $k
+done
+
+# Remount /data and /cache
+mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /cache /cache
+mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /persist /persist
+mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /data /data
+
+# fstrim
+if [ "$TRIM" = "y" ]; then
+     /sbin/fstrim -v /cache
+     /sbin/fstrim -v /persist
+     /sbin/fstrim -v /data
+     /sbin/fstrim -v /system
+fi
+
+# Intellidemand optimizations
 MAX_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq)
 echo "384000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 echo "95" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
@@ -34,7 +49,7 @@ echo "$MAX_FREQ" > /sys/devices/system/cpu/cpufreq/intellidemand/optimal_freq
 echo "810000" > /sys/devices/system/cpu/cpufreq/intellidemand/sync_freq
 echo "1350000, 1350000, 1350000, 1350000" > /sys/devices/system/cpu/cpufreq/intellidemand/input_event_min_freq
 
-# KGSL simple
+# Simple GPU governor
 echo "simple" > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/pwrscale/trustzone/governor
 echo "10000" > /sys/module/msm_kgsl_core/parameters/simple_ramp_threshold
 
@@ -43,25 +58,6 @@ echo "4096" > /proc/sys/vm/min_free_kbytes
 echo "0" > /proc/sys/vm/swappiness
 sync; echo "3" > /proc/sys/vm/drop_caches
 sync; echo "1" > /proc/sys/vm/drop_caches
-
-# ZRAM
-if [ "$ZRAM" = "y" ]; then
-     insmod /system/lib/modules/zram.ko
-     if [ -f /sys/devices/virtual/block/zram0/disksize ]; then
-          echo $(($ZRAM_MB * 1024 * 1024)) > /sys/devices/virtual/block/zram0/disksize
-          mkswap /dev/block/zram0
-          swapon /dev/block/zram0
-          echo "100" > /proc/sys/vm/swappiness
-          echo "100" > /proc/sys/vm/vfs_cache_pressure
-     fi
-fi
-
-# fstrim
-if [ "$TRIM" = "y" ]; then
-     /sbin/fstrim -v /cache
-     /sbin/fstrim -v /data
-     /sbin/fstrim -v /system
-fi
 
 # sysctl 
 if [ -e /system/etc/sysctl.conf ]; then
