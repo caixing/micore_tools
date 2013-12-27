@@ -31,12 +31,10 @@ mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc
 mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /data /data
 
 # fstrim
-if [ "$TRIM" = "y" ]; then
-     /sbin/fstrim -v /cache
-     /sbin/fstrim -v /persist
-     /sbin/fstrim -v /data
-     /sbin/fstrim -v /system
-fi
+/sbin/fstrim -v /cache
+/sbin/fstrim -v /persist
+/sbin/fstrim -v /data
+/sbin/fstrim -v /system
 
 # Intellidemand optimizations
 MAX_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq)
