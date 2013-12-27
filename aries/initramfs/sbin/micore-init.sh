@@ -25,11 +25,6 @@ sync
 busybox mount -o remount,noatime $k
 done
 
-# Remount /data and /cache
-mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /cache /cache
-mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /persist /persist
-mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /data /data
-
 # fstrim
 /sbin/fstrim -v /cache
 /sbin/fstrim -v /persist
