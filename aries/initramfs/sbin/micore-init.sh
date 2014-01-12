@@ -56,8 +56,8 @@ echo "westwood" > /proc/sys/net/ipv4/tcp_congestion_control
 sync; echo "3" > /proc/sys/vm/drop_caches
 sync; echo "1" > /proc/sys/vm/drop_caches
 
-# read a head buffer 1mb
-echo "1024" > /sys/block/mmcblk0/queue/read_ahead_kb
+# read a head buffer 2mb
+echo "2048" > /sys/block/mmcblk0/queue/read_ahead_kb
 
 # sysctl 
 if [ -e /system/etc/sysctl.conf ]; then
