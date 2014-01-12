@@ -18,6 +18,7 @@ ln -fs busybox grep
 ln -fs busybox gzip
 ln -fs busybox id
 ln -fs busybox insmod
+ln -fs busybox ln
 ln -fs busybox md5sum
 ln -fs busybox mkdir
 ln -fs busybox mkswap
@@ -32,6 +33,7 @@ ln -fs busybox swapoff
 ln -fs busybox swapon
 ln -fs busybox sync
 ln -fs busybox sysctl
+ln -fs busybox rm
 ln -fs busybox tee
 ln -fs busybox test
 ln -fs busybox touch
