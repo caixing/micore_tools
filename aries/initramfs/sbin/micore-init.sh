@@ -21,16 +21,6 @@ done
 # Intelli-thermal
 echo "Y" > /sys/module/msm_thermal/parameters/enabled
 
-# Intellidemand optimizations
-MAX_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq)
-echo "95" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
-echo "85" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold_any_cpu_load
-echo "75" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold_multi_core
-echo "1134000" > /sys/devices/system/cpu/cpufreq/intellidemand/two_phase_freq
-echo "$MAX_FREQ" > /sys/devices/system/cpu/cpufreq/intellidemand/optimal_freq
-echo "810000" > /sys/devices/system/cpu/cpufreq/intellidemand/sync_freq
-echo "1350000" > /sys/devices/system/cpu/cpufreq/intellidemand/boostfreq
-
 # Krait retention
 echo "1" > /sys/module/pm_8x60/modes/cpu0/retention/idle_enabled
 echo "1" > /sys/module/pm_8x60/modes/cpu0/retention/suspend_enabled
