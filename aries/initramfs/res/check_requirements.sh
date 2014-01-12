@@ -16,8 +16,10 @@ if [ ! -d /system/lib/modules ]; then
 
 		# WiUi support for MiCore
 		if [ "`cat /system/build.prop | grep "ro.product.mod_device=aries_wiui" | wc -l`" -gt 0 ]; then
-			sed -i '/# init.d support for WiUi/ d' /system/etc/init.qcom.post_boot.sh
-			sed -i '/run-parts /system/etc/init.d// d' /system/etc/init.qcom.post_boot.sh
+			if [ "`cat /system/etc/init.qcom.post_boot.sh | grep "# init.d support for WiUi" | wc -l`" -gt 0 ]; then 
+				sed -i '/# init.d support for WiUi/ d' /system/etc/init.qcom.post_boot.sh
+				sed -i '$ d' /system/etc/init.qcom.post_boot.sh
+			fi
 			rm -f /system/etc/init.d/01_sysctl
 			rm -f /system/etc/init.d/03_engine
 			rm -f /system/etc/init.d/04_cron_support
@@ -73,7 +75,6 @@ if [ ! -e /system/xbin/[ ]; then
 		ln -sf /system/xbin/busybox /system/xbin/dd
 		ln -sf /system/xbin/busybox /system/xbin/depmod
 		ln -sf /system/xbin/busybox /system/xbin/devmem
-		ln -sf /system/xbin/busybox /system/xbin/dexdump
 		ln -sf /system/xbin/busybox /system/xbin/df
 		ln -sf /system/xbin/busybox /system/xbin/diff
 		ln -sf /system/xbin/busybox /system/xbin/dirname
@@ -172,7 +173,6 @@ if [ ! -e /system/xbin/[ ]; then
 		ln -sf /system/xbin/busybox /system/xbin/nslookup
 		ln -sf /system/xbin/busybox /system/xbin/ntpd
 		ln -sf /system/xbin/busybox /system/xbin/od
-		ln -sf /system/xbin/busybox /system/xbin/ota
 		ln -sf /system/xbin/busybox /system/xbin/patch
 		ln -sf /system/xbin/busybox /system/xbin/pgrep
 		ln -sf /system/xbin/busybox /system/xbin/pidof
@@ -209,7 +209,6 @@ if [ ! -e /system/xbin/[ ]; then
 		ln -sf /system/xbin/busybox /system/xbin/sha256sum
 		ln -sf /system/xbin/busybox /system/xbin/sha3sum
 		ln -sf /system/xbin/busybox /system/xbin/sha512sum
-		ln -sf /system/xbin/busybox /system/xbin/shelld
 		ln -sf /system/xbin/busybox /system/xbin/showkey
 		ln -sf /system/xbin/busybox /system/xbin/sleep
 		ln -sf /system/xbin/busybox /system/xbin/smemcap
@@ -217,7 +216,6 @@ if [ ! -e /system/xbin/[ ]; then
 		ln -sf /system/xbin/busybox /system/xbin/split
 		ln -sf /system/xbin/busybox /system/xbin/start-stop-deamon
 		ln -sf /system/xbin/busybox /system/xbin/stat
-		ln -sf /system/xbin/busybox /system/xbin/strace
 		ln -sf /system/xbin/busybox /system/xbin/strings
 		ln -sf /system/xbin/busybox /system/xbin/stty
 		ln -sf /system/xbin/busybox /system/xbin/sum
