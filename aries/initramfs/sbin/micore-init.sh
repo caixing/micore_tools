@@ -21,6 +21,13 @@ done
 # Intelli-thermal
 echo "Y" > /sys/module/msm_thermal/parameters/enabled
 
+# Interactive governor optimizations
+echo "85" > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+echo "1350000" > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+echo "702000" > /sys/devices/system/cpu/cpufreq/interactive/sync_freq
+echo "594000" > /sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_freq
+
+
 # Krait retention
 echo "1" > /sys/module/pm_8x60/modes/cpu0/retention/idle_enabled
 echo "1" > /sys/module/pm_8x60/modes/cpu0/retention/suspend_enabled
