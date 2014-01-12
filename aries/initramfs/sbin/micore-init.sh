@@ -37,7 +37,7 @@ done
 /sbin/fstrim -v /system
 
 # Intelli-thermal
-echo "Y" > /sys/modules/msm_thermal/parameters/enabled
+echo "Y" > /sys/module/msm_thermal/parameters/enabled
 
 # Intellidemand optimizations
 MAX_FREQ=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq)
