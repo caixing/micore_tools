@@ -6,12 +6,6 @@ chmod -R 755 /res
 chmod 755 /res/check_requirements.sh
 . /res/check_requirements.sh
 
-# Remount all partitions with noatime
-for k in $(busybox mount | grep relatime | cut -d " " -f3); do
-sync
-busybox mount -o remount,noatime $k
-done
-
 # fstrim
 /sbin/fstrim -v /cache
 /sbin/fstrim -v /persist
@@ -20,23 +14,6 @@ done
 
 # Intelli-thermal
 echo "Y" > /sys/module/msm_thermal/parameters/enabled
-
-# Interactive governor optimizations
-echo "85" > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-echo "1350000" > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-echo "702000" > /sys/devices/system/cpu/cpufreq/interactive/sync_freq
-echo "594000" > /sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_freq
-
-
-# Krait retention
-echo "1" > /sys/module/pm_8x60/modes/cpu0/retention/idle_enabled
-echo "1" > /sys/module/pm_8x60/modes/cpu0/retention/suspend_enabled
-echo "1" > /sys/module/pm_8x60/modes/cpu1/retention/idle_enabled
-echo "1" > /sys/module/pm_8x60/modes/cpu1/retention/suspend_enabled
-echo "1" > /sys/module/pm_8x60/modes/cpu2/retention/idle_enabled
-echo "1" > /sys/module/pm_8x60/modes/cpu2/retention/suspend_enabled
-echo "1" > /sys/module/pm_8x60/modes/cpu3/retention/idle_enabled
-echo "1" > /sys/module/pm_8x60/modes/cpu3/retention/suspend_enabled
 
 # Sysctl
 echo "4096" > /proc/sys/vm/min_free_kbytes

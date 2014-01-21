@@ -39,19 +39,19 @@ on fs
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system /system wait ro barrier=1
 
     wait /dev/block/platform/msm_sdcc.1/by-name/userdata
-    exec /system/bin/sh /system/bin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/userdata /data
+    exec /system/bin/sh /sbin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/userdata /data
 
     wait /dev/block/platform/msm_sdcc.1/by-name/cache
-    exec /system/bin/sh /system/bin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/cache /cache
+    exec /system/bin/sh /sbin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/cache /cache
 
     wait /dev/block/platform/msm_sdcc.1/by-name/persist
-    exec /system/bin/sh /system/bin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/persist /persist
+    exec /system/bin/sh /sbin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/persist /persist
 
     wait /dev/block/platform/msm_sdcc.1/by-name/modem
     mount vfat /dev/block/platform/msm_sdcc.1/by-name/modem /firmware ro shortname=lower dmask=133 fmask=133
 
     wait /dev/block/platform/msm_sdcc.1/by-name/storage
-    exec /system/bin/sh /system/bin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/storage /storage_int
+    exec /system/bin/sh /sbin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/storage /storage_int
 
     mkdir /persist/property
     chmod 0775 /persist/property
