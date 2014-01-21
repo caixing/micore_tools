@@ -92,15 +92,15 @@ service gsiff_daemon /system/bin/gsiff_daemon
     user system
     group gps qcom_oncrpc net_raw
 
-service thermald_h /system/bin/thermald --config /system/etc/thermald_h.conf
-   class main
-   user root
-   group root
+#service thermald_h /system/bin/thermald --config /system/etc/thermald_h.conf
+#   class main
+#   user root
+#   group root
 
-service thermald_l /system/bin/thermald --config /system/etc/thermald_l.conf
-   class main
-   user root
-   group root
+#service thermald_l /system/bin/thermald --config /system/etc/thermald_l.conf
+#   class main
+#   user root
+#   group root
 
 #service mpdecision /system/bin/mpdecision --avg_comp
 #   user root
