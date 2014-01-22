@@ -36,7 +36,7 @@ on fs
     # these partition flashed on the device. Failure to mount any partition in fstab file
     # results in failure to launch late-start class.
 
-    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system /system wait ro barrier=1
+    mount ext4 ${LOCAL_ENV_CURR_SYSTEM} /system wait ro barrier=1
 
     wait /dev/block/platform/msm_sdcc.1/by-name/userdata
     exec /system/bin/sh /sbin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/userdata /data
@@ -47,8 +47,7 @@ on fs
     wait /dev/block/platform/msm_sdcc.1/by-name/persist
     exec /system/bin/sh /sbin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/persist /persist
 
-    wait /dev/block/platform/msm_sdcc.1/by-name/modem
-    mount vfat /dev/block/platform/msm_sdcc.1/by-name/modem /firmware ro shortname=lower dmask=133 fmask=133
+    mount vfat ${LOCAL_ENV_CURR_MODEM} /firmware wait ro shortname=lower dmask=133 fmask=133
 
     wait /dev/block/platform/msm_sdcc.1/by-name/storage
     exec /system/bin/sh /sbin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/storage /storage_int
