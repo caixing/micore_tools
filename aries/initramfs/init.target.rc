@@ -157,8 +157,6 @@ on property:ro.baseband=sglte
     start mdm_helper
 
 on property:persist.sys.aries.power_profile=high
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 2000000
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 384000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactiveS
     write /sys/devices/system/cpu/cpufreq/interactives/go_hispeed_load 80
     write /sys/class/leds/lcd-backlight/max_brightness 255
@@ -168,8 +166,6 @@ on property:persist.sys.aries.power_profile=high
     write /sys/block/mmcblk0/queue/scheduler sio
 
 on property:persist.sys.aries.power_profile=middle
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 2000000
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 384000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactiveS
     write /sys/class/leds/lcd-backlight/max_brightness 255
     write /sys/module/intelli_plug/parameters/eco_mode_active 0
@@ -178,8 +174,6 @@ on property:persist.sys.aries.power_profile=middle
     write /sys/block/mmcblk0/queue/scheduler fiops
 
 on property:persist.sys.aries.power_profile=low
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1350000
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 384000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor intellidemand
     write /sys/class/leds/lcd-backlight/max_brightness 140
     write /sys/module/intelli_plug/parameters/eco_mode_active 1
