@@ -1,7 +1,7 @@
 source micore_tools/micore.cfg
 BUILD=$(expr $BUILD + 1)
-sed -i '/BUILD=*/ d' $MICORE_CFG
-echo "BUILD=$BUILD" >> $MICORE_CFG
+sed -i '/BUILD=*/ d' micore_tools/micore.cfg
+echo "BUILD=$BUILD" >> micore_tools/micore.cfg
 export ARCH=arm
 export CROSS_COMPILE=$CROSS_COMPILE
 export LOCALVERSION="-MiCore-$VERSION-$BUILD"
