@@ -20,14 +20,10 @@ if [ ! -d /system/lib/modules ]; then
 				sed -i '/# init.d support for WiUi/ d' /system/etc/init.qcom.post_boot.sh
 				sed -i '$ d' /system/etc/init.qcom.post_boot.sh
 			fi
-			rm -f /system/etc/init.d/01_sysctl
-			rm -f /system/etc/init.d/03_engine
-			rm -f /system/etc/init.d/04_cron_support
-			rm -f /system/etc/init.d/05_clean
-			rm -f /system/etc/init.d/07_rngd
-			rm -f /system/etc/init.d/09_fstrim
+			rm -rf /system/etc/init.d
 			rm -rf /system/etc/cron
 		fi
+	reboot
 fi
 
 # Thermald.conf
