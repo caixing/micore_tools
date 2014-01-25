@@ -44,7 +44,7 @@ if [ -e ${BLOCK_DEVICE} ]; then
         	e2fsck -y ${BLOCK_DEVICE}
         	ret6=$?
        		echo "e2fsck on ${BLOCK_DEVICE} ret = $ret6"
-        	mount -t ext4 -o noatime,nosuid,nodev,barrier=0,commit=60,noauto_da_alloc,delalloc ${BLOCK_DEVICE} ${MOUNT_POINT}
+        	mount -t ext4 -o noatime,nosuid,nodev,barrier=1,commit=60,noauto_da_alloc,delalloc ${BLOCK_DEVICE} ${MOUNT_POINT}
         	if [ $ret5 -eq 0 -o $ret5 -eq 2 ]; then
             		rm ${MOUNT_POINT}/extend_size*
         	fi

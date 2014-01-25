@@ -15,6 +15,20 @@ chmod 755 /res/check_requirements.sh
 # Intelli-thermal
 echo "Y" > /sys/module/msm_thermal/parameters/enabled
 
+# CPU Overclocking safety
+AVAILABLE_FREQS=/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+if [ $(cat $AVAILABLE_FREQS | grep "1566000" | wc -l) -gt 0 ]; then
+	if [ $(cat $AVAILABLE_FREQS | grep "1944000" | wc -l) -gt 0 ]; then
+		echo "Xiami Mi2S detected | Overclocking enabled"
+		echo "1566000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+	fi
+elif [ $(cat $AVAILABLE_FREQS | grep "1512000" | wc -l) -gt 0 ]; then
+	if [ $(cat $AVAILABLE_FREQS | grep "1728000" | wc -l) -gt 0 ]; then
+		echo "Xiami Mi2 detected | Overclocking enabled"
+		echo "1512000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+	fi
+fi
+
 # Sysctl
 echo "4096" > /proc/sys/vm/min_free_kbytes
 echo "0" > /proc/sys/vm/swappiness
