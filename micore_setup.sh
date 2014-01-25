@@ -63,7 +63,7 @@ echo "CROSS_COMPILE=$CROSS_COMPILE" >> $MICORE_CFG
 echo "DEVICE=$DEVICE" >> $MICORE_CFG
 echo "DEFCONFIG=$DEFCONFIG" >> $MICORE_CFG
 echo "VERSION=$VERSION" >> $MICORE_CFG
-echo "BUILD=1" >> $MICORE_CFG
+echo "BUILD=0" >> $MICORE_CFG
 
 chmod 755 micore_tools/scripts/*
 chmod 755 micore_tools/bootimage_tools/*

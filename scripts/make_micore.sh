@@ -23,7 +23,7 @@ echo "		--boot [device]				Make a boot.img"
 echo "							device = aries or blank (if blank default device will be used)"
 echo "		--busybox [device]			Install busybox in initramfs"
 echo "							device = aries or blank (if blank default device will be used)"
-echo "		--kernel [defconfig]			Make kernel"
+echo "		--kernel [defconfig][--extra]		Make kernel"
 echo "							if defconfig is blank default defconfig will be used)"
 echo "		--version [version]			Update version number"
 echo "							version = can be anything (e.g. v0.8.0)"
@@ -45,10 +45,17 @@ if [ $# -gt 0 ]; then
      	elif [ $1 == "--kernel" ]; then
             	if [ "$2" != "" ]; then
 			if [ -e arch/arm/configs/$2 ]; then
-                      		micore_tools/scripts/make_kernel.sh $2
+				if [ "$3" = "--extra" ]; then
+                      			micore_tools/scripts/make_kernel.sh $2 $3
+				else
+					micore_tools/scripts/make_kernel.sh $2
+				fi
+			elif [ "$2" = "--extra" ]; then
+				micore_tools/scripts/make_kernel.sh $2
                 	else
                       		echo "Error: defconfig not found: $2"
 			fi
+			
             	else  
                  	micore_tools/scripts/make_kernel.sh $DEFCONFIG  
             	fi

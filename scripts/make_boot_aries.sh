@@ -46,7 +46,7 @@ assert(getprop("ro.product.device") == "aries" ||
        getprop("ro.build.product") == "aries");
 show_progress(0.500000, 0);
 ui_print(" ");
-ui_print("MiCore Kernel $VERSION");
+ui_print("MiCore Kernel $VERSION MCKB$BUILD");
 ui_print("For Xiaomi MI-2/S (aries)");
 mount("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/system", "/system");
 delete_recursive("/system/lib/modules");
@@ -60,4 +60,4 @@ rm -f micore_tools/aries/zip_template/kernel.zip
 cd micore_tools/aries/zip_template
 zip -r kernel.zip *
 cd ../../..
-java -jar micore_tools/signapk/signapk.jar micore_tools/signapk/testkey.x509.pem micore_tools/signapk/testkey.pk8 micore_tools/aries/zip_template/kernel.zip micore_tools/out/MiCore_"$VERSION"_"aries".zip
+java -jar micore_tools/signapk/signapk.jar micore_tools/signapk/testkey.x509.pem micore_tools/signapk/testkey.pk8 micore_tools/aries/zip_template/kernel.zip micore_tools/out/kernel-MiCore_"$VERSION"_"MCKB$BUILD"_"aries".zip
