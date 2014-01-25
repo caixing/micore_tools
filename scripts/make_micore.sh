@@ -1,10 +1,10 @@
 check_cfg () {
 if [ -e micore_tools/micore.cfg ]; then
-     MICORE_CFG=micore_tools/micore.cfg
-     source $MICORE_CFG
+     	MICORE_CFG=micore_tools/micore.cfg
+     	source $MICORE_CFG
 else 
-     . micore_tools/micore_setup.sh
-     check_cfg
+     	. micore_tools/micore_setup.sh
+     	check_cfg
 fi 
 }
 
@@ -33,29 +33,29 @@ exit
 
 check_cfg
 if [ $# -gt 0 ]; then
-     if [ $1 == "--help" ]; then
-          show_argument_help
-     elif [ $1 == "--boot" ]; then
-            micore_tools/scripts/make_boot_$DEVICE.sh $DEVICE
-     elif [ $1 == "--busybox" ]; then
-            case "$2" in
-                 aries) micore_tools/scripts/install_busybox_initramfs.sh aries;;
-                     *) micore_tools/scripts/install_busybox_initramfs.sh $DEVICE;;
-            esac
-     elif [ $1 == "--kernel" ]; then
-            if [ "$2" != "" ]; then
-                 if [ -e arch/arm/configs/$2 ]; then
-                      micore_tools/scripts/make_kernel.sh $2
-                 else
-                      echo "Error: defconfig not found: $2"
-                 fi
-            else  
-                 micore_tools/scripts/make_kernel.sh $DEFCONFIG  
-            fi
-     elif [ $1 == "--version" ]; then
-            sed -i '/VERSION=*/ d' $MICORE_CFG
-            echo "VERSION=$2" >> $MICORE_CFG
-     fi
+     	if [ $1 == "--help" ]; then
+          	show_argument_help
+     	elif [ $1 == "--boot" ]; then
+            	micore_tools/scripts/make_boot_$DEVICE.sh $DEVICE
+     	elif [ $1 == "--busybox" ]; then
+            	case "$2" in
+                 	aries) micore_tools/scripts/install_busybox_initramfs.sh aries;;
+                     	    *) micore_tools/scripts/install_busybox_initramfs.sh $DEVICE;;
+            	esac
+     	elif [ $1 == "--kernel" ]; then
+            	if [ "$2" != "" ]; then
+			if [ -e arch/arm/configs/$2 ]; then
+                      		micore_tools/scripts/make_kernel.sh $2
+                	else
+                      		echo "Error: defconfig not found: $2"
+			fi
+            	else  
+                 	micore_tools/scripts/make_kernel.sh $DEFCONFIG  
+            	fi
+     	elif [ $1 == "--version" ]; then
+            	sed -i '/VERSION=*/ d' $MICORE_CFG
+            	echo "VERSION=$2" >> $MICORE_CFG
+     	fi
 else
-     show_argument_help
+     	show_argument_help
 fi 
