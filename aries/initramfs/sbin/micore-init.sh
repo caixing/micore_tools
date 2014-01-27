@@ -32,7 +32,8 @@ fi
 # Sysctl
 echo "4096" > /proc/sys/vm/min_free_kbytes
 echo "0" > /proc/sys/vm/swappiness
-echo "westwood" > /proc/sys/net/ipv4/tcp_congestion_control
+
+# Wipe VFS cache
 sync; echo "3" > /proc/sys/vm/drop_caches
 sync; echo "1" > /proc/sys/vm/drop_caches
 

@@ -15,15 +15,12 @@ if [ ! -d /system/lib/modules ]; then
      	ln -s /system/lib/modules/prima/prima_wlan.ko /system/lib/modules/wlan.ko
 
 		# WiUi support for MiCore
-		if [ "`cat /system/build.prop | grep "ro.product.mod_device=aries_wiui" | wc -l`" -gt 0 ]; then
+		if [ "`cat /system/build.prop | grep "ro.build.display.id=WiUi" | wc -l`" -gt 0 ]; then
 			if [ "`cat /system/etc/init.qcom.post_boot.sh | grep "# init.d support for WiUi" | wc -l`" -gt 0 ]; then 
 				sed -i '/# init.d support for WiUi/ d' /system/etc/init.qcom.post_boot.sh
 				sed -i '$ d' /system/etc/init.qcom.post_boot.sh
 			fi
-			rm -rf /system/etc/init.d
-			rm -rf /system/etc/cron
 		fi
-	reboot
 fi
 
 # Thermald.conf
